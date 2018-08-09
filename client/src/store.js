@@ -1,22 +1,32 @@
 //read react doc Store 
 
-import { createStore, applyMiddleware, compose } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
+import rootReducer from '../reducers/root-reducer';
 import thunk from 'redux-thunk';
-import rootReducer from './reducers';
 
 const initialState = {};
+const middleware = [thunk]; //thunk is a middleware
 
-const middleware = [thunk];
+/*const composingMiddlewareAndDevTools = compose (
+	applyMiddleware(...middleware),
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);*/
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__|| compose;
+/*https://github.com/zalmoxisus/redux-devtools-extension#12-advanced-store-setup*/
+const composeEnhancers =  typeof window === 'object' &&  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    }) : compose;
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeEnhancers(
-    applyMiddleware(...middleware)
-    // window._REDUX_DEVTOOLS_EXTENSION_ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+const composingMiddlewareAndDevTools = composeEnhancers(
+  applyMiddleware(...middleware),
+  // other store enhancers if any
 );
+
+const store = createStore(rootReducer,
+                          initialState,
+						  composingMiddlewareAndDevTools);
+
+console.log(store.getState());
 
 export default store;
