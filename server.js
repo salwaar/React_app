@@ -27,7 +27,6 @@ res.sendFile(path.resolve(__dirname, 'client' ,'build', 'index.html'))
   })
 } 
 //to run my server = creat a variable for the port im going to use
-
 const port = process.env.PORT || 5000 //cause i’ll deploy it to herku this is necessary
 app.listen(port , ()=> console.log(`Server started on port  ${port}`))
 
