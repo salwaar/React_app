@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { 
-Container,ListGroup,ListGroupItem ,Button } from 'reactstrap';
+Container,ListGroup,
+ListGroupItem ,
+Button } from 'reactstrap';
 import {CSSTransition , TransitionGroup} from 'react-transition-group'
  //import uuid from 'uuid';//uudi for ganerating randome ids 
 import { connect } from 'react-redux'//allows us to get state from redux into react component 
